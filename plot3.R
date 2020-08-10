@@ -11,6 +11,9 @@ plot3 <- function() {
   
   # read input file and format datetime
   power <- read.csv.sql("household_power_consumption.txt", sep=";", sql="select * from file where Date = '1/2/2007' or Date = '2/2/2007'")
+  # cleanup
+  closeAllConnections()
+  
   pow <- tbl_df(power)
   pow <- pow %>% mutate(datetime = dmy_hms(paste(Date,Time)))
   
@@ -25,9 +28,6 @@ plot3 <- function() {
   
   # close output device
   dev.off()
-  
-  # cleanup
-  closeAllConnections()
 }
 
 

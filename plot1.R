@@ -11,9 +11,12 @@ plot1 <- function() {
 
   # read input file and format datetime
   power <- read.csv.sql("household_power_consumption.txt", sep=";", sql="select * from file where Date = '1/2/2007' or Date = '2/2/2007'")
+  # cleanup
+  closeAllConnections()
+  
   pow <- tbl_df(power)
   pow <- pow %>% mutate(datetime = dmy_hms(paste(Date,Time)))
-
+  
   # open output device png file
   pngFile <- png(filename="plot1.png", width=480, height=480, units="px")
 
@@ -23,8 +26,6 @@ plot1 <- function() {
   # close output device
   dev.off()
 
-  # cleanup
-  closeAllConnections()
 }
 
 
